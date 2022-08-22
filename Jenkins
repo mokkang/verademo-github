@@ -45,7 +45,7 @@ pipeline {
 
         stage ('Git Checkout') {
             steps {
-                git branch: 'main2', url: 'https://github.com/mokkang/Verademo-jenkins.git'
+                git branch: 'demo', url: 'https://github.com/mokkang/verademo-github.git'
             }
         }
         stage ('build') {

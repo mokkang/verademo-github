@@ -103,15 +103,15 @@ pipeline {
 
         // only works on *nix, as we're building a Linux image
         //  uses the natively installed docker
-        stage ('Deploy') {
-            when { expression { return (isUnix() == true) } }
+        stage ('Test') {
+        //    when { expression { return (isUnix() == true) } }
             steps {
                 echo 'building Docker image'
-                sh 'docker version'
+         //       sh 'docker version'
 
-                ansiColor('xterm') {
-                    sh 'docker build -t verademo:${BUILD_TAG} .'
-                }
+             //   ansiColor('xterm') {
+      //              sh 'docker build -t verademo:${BUILD_TAG} .'
+             //   }
                 
                 // split into separate stage??
                 echo 'Deploying ...'

@@ -72,50 +72,7 @@ pipeline {
                         // wait for scan to complete (timeout: x)
                         //veracode applicationName: '${VERACODE_APP_NAME}'', criticality: 'VeryHigh', debug: true, timeout: 20, fileNamePattern: '', pHost: '', pPassword: '', pUser: '', replacementPattern: '', sandboxName: '', scanExcludesPattern: '', scanIncludesPattern: '', scanName: "${BUILD_TAG}", uploadExcludesPattern: '', uploadIncludesPattern: 'target/verademo.war', vid: '${VERACODE_API_ID}', vkey: '${VERACODE_API_KEY}'
                        
-            }
-        }
-
-        stage ('Veracode SCA') {
-            steps {
-                echo 'Veracode SCA'
-                withCredentials([ string(credentialsId: 'SCA_Token', variable: 'SRCCLR_API_TOKEN')]) {
-                    withMaven(maven:'maven-3') {
-                        script {
-                            if(isUnix() == true) {
-                                sh "curl -sSL https://download.sourceclear.com/ci.sh | sh ./app --allow-dirty --update-advisor"
-
-                                // debug, no upload
-                                //sh "curl -sSL https://download.sourceclear.com/ci.sh | DEBUG=1 sh -s -- scan --no-upload"
-                            }
-                            else {
-                                powershell '''
-                                            Set-ExecutionPolicy AllSigned -Scope Process -Force
-                                            $ProgressPreference = "silentlyContinue"
-                                            iex ((New-Object System.Net.WebClient).DownloadString('https://download.srcclr.com/ci.ps1'))
-                                            srcclr scan ./app --allow-dirty --update-advisor
-                                            '''
-                            }
-                        }
-                    }
                 }
-            }
-        }
-
-        // only works on *nix, as we're building a Linux image
-        //  uses the natively installed docker
-        stage ('Test') {
-        //    when { expression { return (isUnix() == true) } }
-            steps {
-                echo 'building Docker image'
-         //       sh 'docker version'
-
-             //   ansiColor('xterm') {
-      //              sh 'docker build -t verademo:${BUILD_TAG} .'
-             //   }
-                
-                // split into separate stage??
-                echo 'Deploying ...'
-        
             }
         }
     }

@@ -1,6 +1,3 @@
-/*
- * Normal Jenkinsfile that will build and do Policy and SCA scans
- */
 
 pipeline {
     agent any
@@ -98,24 +95,6 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
-
-        // only works on *nix, as we're building a Linux image
-        //  uses the natively installed docker
-       // stage ('Deploy') {
-         //   when { expression { return (isUnix() == true) } }
-        //    steps {
-       //         echo 'building Docker image'
-       //         sh 'docker version'
-
-      //          ansiColor('xterm') {
-       ////             sh 'docker build -t verademo:${BUILD_TAG} .'
-       //         }
-                
-                // split into separate stage??
-        //        echo 'Deploying ...'
-        
             }
         }
     }

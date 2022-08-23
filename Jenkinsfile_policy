@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        VERACODE_APP_NAME = 'Verademo'      // App Name in the Veracode Platform
+        VERACODE_APP_NAME = 'VeraDemo'      // App Name in the Veracode Platform
     }
 
     // this is optional on Linux, if jenkins does not have access to your locally installed docker
@@ -79,7 +79,7 @@ pipeline {
                     withMaven(maven:'maven-3') {
                         script {
                             if(isUnix() == true) {
-                                sh "curl -sSL https://download.sourceclear.com/ci.sh | sh -s ./app scan --update-advisor "
+                                sh "curl -sSL https://download.sourceclear.com/ci.sh | sh -s ./app/  --update-advisor "
 
                                 // debug, no upload
                                 //sh "curl -sSL https://download.sourceclear.com/ci.sh | DEBUG=1 sh -s -- scan --no-upload"

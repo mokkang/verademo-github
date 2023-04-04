@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+        docker {
+            image 'ubuntu:latest'
+        }
+    }
+    stages {
+        stage('Veracode Analysis') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'veracode_logins', passwordVariable: 'VERACODE_API_KEY_SECRET', usernameVariable: 'VERACODE_API_KEY_ID')]) {
+                        sh 'curl -fsS https://tools.veracode.com/veracode-cli/install | sh'
+                        sh './veracode configure'
+                        // ... (include the other veracode commands from the Azure DevOps Pipeline file)
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'veracode_container_scan.json,veracode_container_scan_dotnet.json,sbom.json,sbom_dotnet.json', fingerprint: true
+        }
+    }
+}

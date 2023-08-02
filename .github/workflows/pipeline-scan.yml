@@ -7,7 +7,7 @@ name: Veracode Static Analysis Pipeline Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ demo ]
   pull_request:
     branches: [ master ]
 

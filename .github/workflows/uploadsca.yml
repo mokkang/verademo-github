@@ -78,7 +78,7 @@ jobs:
            curl -sSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xdf7dd7a50b746dd4' | sudo gpg --dearmor -o /usr/share/keyrings/veracode-sca-archive.gpg
            echo 'deb [signed-by=/usr/share/keyrings/veracode-sca-archive.gpg] https://download.sourceclear.com/ubuntu stable/' | sudo tee /etc/apt/sources.list.d/veracode-sca.list
            sudo apt-get update
-           sudo apt-get install srcclr              
+           sudo apt-get install -y srcclr              
            curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan ./app/ --quick --json=scaResults.json
            SRCCLR_API_TOKEN="${{secrets.SRCCLR_API_TOKEN}}" srcclr scan --json scaresults.json
       - uses: actions/upload-artifact@v1

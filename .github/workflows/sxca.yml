@@ -1,6 +1,5 @@
 name: Veracode SCA Scan
-#
-on: 
+# 
   push:
     paths-ignore:
       - "README.md"

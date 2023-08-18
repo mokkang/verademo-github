@@ -53,7 +53,7 @@ pipeline {
                 withMaven(maven:'maven-3') {
                     script {
                         if(isUnix() == true) {
-                            sh 'mvn clean package'
+                            sh 'mvn clean package -f app/pom.xml'
                         }
                         else {
                             bat 'mvn -f app/pom.xml clean package'
@@ -93,7 +93,7 @@ pipeline {
                     withMaven(maven:'maven-3') {
                         script {
                             if(isUnix() == true) {
-                                sh "curl -sSL https://download.sourceclear.com/ci.sh | sh"
+                                sh "curl -sSL https://download.sourceclear.com/ci.sh | sh ./app/pom.xml"
 
                                 // debug, no upload
                                //sh "curl -sSL https://download.sourceclear.com/ci.sh | DEBUG=1 sh -s -- scan --no-upload"
